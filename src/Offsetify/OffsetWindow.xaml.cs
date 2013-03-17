@@ -11,10 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using XDevkit;
-using HaloDevelopmentExtender;
-using HaloReach3d;
 using System.IO;
+using XDevkit;
 
 namespace Offsetify
 {
@@ -71,9 +69,14 @@ namespace Offsetify
 
         private List<Offset> OffsetList;
 
+        private RealTimeEditing rte;
+
         public OffsetWindow(string filename)
         {
             InitializeComponent();
+
+            rte = new RealTimeEditing();
+
             this.Title = new FileInfo(filename).Name;
             XboxManager xmb = new XboxManager();
             xdkName.Text = xmb.DefaultConsole;
@@ -92,22 +95,22 @@ namespace Offsetify
 
         private void assignedPokeButton_Click(object sender, RoutedEventArgs e)
         {
-            pokeXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType, CurrentAssigned);
+            rte.PokeXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType, CurrentAssigned);
         }     
 
         private void defaultPokeButton_Click(object sender, RoutedEventArgs e)
         {
-            pokeXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType, CurrentDefault);
+            rte.PokeXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType, CurrentDefault);
         }
 
         private void customPokeButton_Click(object sender, RoutedEventArgs e)
         {
-            pokeXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType, customValueBox.Text);
+            rte.PokeXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType, customValueBox.Text);
         }
 
         private void customPeekButton_Click(object sender, RoutedEventArgs e)
         {
-            customValueBox.Text = getValue(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType);
+            customValueBox.Text = rte.PeekXbox(Convert.ToUInt32(CurrentOffset, 0x10), CurrentType);
         }
 
         private void offsetsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,137 +128,21 @@ namespace Offsetify
             notesBox.Document = myFlowDoc;
         }
 
-        public string getValue(uint offset, string type)
+        private void connectToXDKButton_Click(object sender, RoutedEventArgs e)
         {
-            string hex = "X";
-            object rn = null;
-            if (xdkName.Text != "")
+            rte = new RealTimeEditing(xdkName.Text);
+            bool successfulConnection = rte.Connect();
+            if (successfulConnection)
             {
-                XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName.Text);
-                if (!Xbox_Debug_Communicator.Connected)
-                {
-                    try
-                    {
-                        Xbox_Debug_Communicator.Connect();
-                    }
-                    catch
-                    {
-                    }
-                }
-                XboxMemoryStream xbms = Xbox_Debug_Communicator.ReturnXboxMemoryStream();
-                HaloReach3d.IO.EndianIO IO = new HaloReach3d.IO.EndianIO(xbms, HaloReach3d.IO.EndianType.BigEndian);
-                IO.Open();
-                IO.In.BaseStream.Position = offset;
-                if ((type == "String") | (type == "string"))
-                {
-                    rn = IO.In.ReadString();
-                }
-                if ((type == "Float") | (type == "float"))
-                {
-                    rn = IO.In.ReadSingle();
-                }
-                if ((type == "Double") | (type == "double"))
-                {
-                    rn = IO.In.ReadDouble();
-                }
-                if ((type == "Short") | (type == "short"))
-                {
-                    rn = IO.In.ReadInt16().ToString(hex);
-                }
-                if ((type == "Byte") | (type == "byte"))
-                {
-                    rn = IO.In.ReadByte().ToString(hex);
-                }
-                if ((type == "Long") | (type == "long"))
-                {
-                    rn = IO.In.ReadInt32().ToString(hex);
-                }
-                if ((type == "Quad") | (type == "quad"))
-                {
-                    rn = IO.In.ReadInt64().ToString(hex);
-                }
-                IO.Close();
-                xbms.Close();
-                Xbox_Debug_Communicator.Disconnect();
-                return rn.ToString();
+                connectToXDKButton.Content = "Success";
+                connectToXDKButton.Background = Brushes.YellowGreen;
+                connectToXDKButton.BorderBrush = Brushes.YellowGreen;
             }
-            MessageBox.Show("XDK Name/IP not set");
-            return "No Console Detected";
-        }
-
-        public void pokeXbox(uint offset, string poketype, string amount)
-        {
-            try
+            else
             {
-                if (xdkName.Text == "")
-                {
-                    MessageBox.Show("XDK Name/IP not set");
-                }
-                else
-                {
-                    XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName.Text);
-                    if (!Xbox_Debug_Communicator.Connected)
-                    {
-                        try
-                        {
-                            Xbox_Debug_Communicator.Connect();
-                        }
-                        catch
-                        {
-                        }
-                    }
-                    XboxMemoryStream xbms = Xbox_Debug_Communicator.ReturnXboxMemoryStream();
-                    HaloReach3d.IO.EndianIO IO = new HaloReach3d.IO.EndianIO(xbms, HaloReach3d.IO.EndianType.BigEndian);
-                    IO.Open();
-                    IO.Out.BaseStream.Position = offset;
-                    if (poketype == "Unicode String")
-                    {
-                        IO.Out.WriteUnicodeString(amount, amount.Length);
-                    }
-                    if (poketype == "ASCII String")
-                    {
-                        IO.Out.WriteUnicodeString(amount, amount.Length);
-                    }
-                    if ((poketype == "String") | (poketype == "string"))
-                    {
-                        IO.Out.Write(amount);
-                    }
-                    if ((poketype == "Float") | (poketype == "float"))
-                    {
-                        IO.Out.Write(float.Parse(amount));
-                    }
-                    if ((poketype == "Double") | (poketype == "double"))
-                    {
-                        IO.Out.Write(double.Parse(amount));
-                    }
-                    if ((poketype == "Short") | (poketype == "short"))
-                    {
-                        IO.Out.Write((short)Convert.ToUInt32(amount, 0x10));
-                    }
-                    if ((poketype == "Byte") | (poketype == "byte"))
-                    {
-                        IO.Out.Write((byte)Convert.ToUInt32(amount, 0x10));
-                    }
-                    if ((poketype == "Long") | (poketype == "long"))
-                    {
-                        IO.Out.Write((long)Convert.ToUInt32(amount, 0x10));
-                    }
-                    if ((poketype == "Quad") | (poketype == "quad"))
-                    {
-                        IO.Out.Write((long)Convert.ToUInt64(amount, 0x10));
-                    }
-                    if ((poketype == "Int") | (poketype == "int"))
-                    {
-                        IO.Out.Write(Convert.ToUInt32(amount, 0x10));
-                    }
-                    IO.Close();
-                    xbms.Close();
-                    Xbox_Debug_Communicator.Disconnect();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Couldn't Poke XDK");
+                connectToXDKButton.Content = "Failure";
+                connectToXDKButton.Background = Brushes.Red;
+                connectToXDKButton.BorderBrush = Brushes.Red;
             }
         }
     }

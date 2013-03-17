@@ -9,7 +9,7 @@
         params:Design.AccentBrush="YellowGreen"
         params:Manager.AccentBrush="YellowGreen"
         params:Manager.ContrastBrush="White"
-        Height="79" Width="362" ResizeMode="NoResize" Title="Offsetify by Christian Nieves" >
+        Height="79" Width="362" ResizeMode="NoResize" >
     <Grid>
         <Button x:Name="openXMLFile" Content="Open Offsetify XML" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="167" Click="openXMLFile_Click"/>
         <Button x:Name="createFileButton" Content="Create Offsetify XML" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" Width="167" Click="createFileButton_Click"/>

@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Offsetify
 {
-    using System;
-
     internal class Offset
     {
         public string AssignedValue;

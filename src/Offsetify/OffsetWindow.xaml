@@ -13,8 +13,8 @@
         Height="376" Width="459"
         Title="Offset Window" ResizeMode="NoResize">
     <Grid>
-        <ComboBox x:Name="offsetsBox" HorizontalAlignment="Left" Margin="179,10,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="offsetsBox_SelectionChanged"/>
-        <TextBox x:Name="xdkName" HorizontalAlignment="Left" Height="31" Margin="25,10,0,0" Text="XDK Name" VerticalAlignment="Top" Width="149" FontSize="13.333"/>
+        <ComboBox x:Name="offsetsBox" HorizontalAlignment="Left" Margin="202,10,0,0" VerticalAlignment="Top" Width="227" SelectionChanged="offsetsBox_SelectionChanged"/>
+        <TextBox x:Name="xdkName" HorizontalAlignment="Left" Height="30" Margin="25,10,0,0" Text="XDK Name" VerticalAlignment="Top" Width="172" FontSize="13.333"/>
         <TextBlock HorizontalAlignment="Left" Margin="32,158,0,0" TextWrapping="Wrap" Text="Saved Value" VerticalAlignment="Top" FontSize="13.333"/>
         <TextBox x:Name="assignedValueBox" HorizontalAlignment="Left" Height="31" Margin="109,151,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170" FontSize="13.333" IsEnabled="False"/>
         <Button x:Name="assignedPokeButton" Content="Poke" HorizontalAlignment="Left" Margin="284,151,0,0" VerticalAlignment="Top" Width="145" Click="assignedPokeButton_Click"/>
@@ -36,6 +36,11 @@
             </FlowDocument>
         </RichTextBox>
         <TextBlock HorizontalAlignment="Left" Margin="69,260,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" FontSize="13.333"/>
+        <Button x:Name="connectToXDKButton" Content="Connect" HorizontalAlignment="Left" Margin="127,10,0,0" VerticalAlignment="Top" Width="60" Height="30" Click="connectToXDKButton_Click" BorderBrush="#FF3399FF">
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Controls:Window>
