@@ -44,5 +44,10 @@ namespace Offsetify
         {
             new MakeXMLWindow().Show();
         }
+
+        private void manualPokerButton_Click(object sender, RoutedEventArgs e)
+        {
+            new ManualPoker().Show();
+        }
     }
 }

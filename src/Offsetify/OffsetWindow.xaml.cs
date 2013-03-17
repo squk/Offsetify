@@ -145,5 +145,20 @@ namespace Offsetify
                 connectToXDKButton.BorderBrush = Brushes.Red;
             }
         }
+
+        bool afterFirstRun;
+
+        private void xdkName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (afterFirstRun)
+            {
+                connectToXDKButton.Content = "Connect";
+                var converter = new System.Windows.Media.BrushConverter();
+                var blueBrush = (Brush)converter.ConvertFromString("#FF3399FF");
+                connectToXDKButton.Background = blueBrush;
+                connectToXDKButton.BorderBrush = blueBrush;
+            }
+            afterFirstRun = true;
+        }
     }
 }
