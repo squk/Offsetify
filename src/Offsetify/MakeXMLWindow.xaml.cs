@@ -18,7 +18,6 @@ namespace Offsetify
     public partial class MakeXMLWindow : Elysium.Controls.Window
     {
         private List<Offset> OffsetList = new List<Offset>();
-
         public MakeXMLWindow()
         {
             InitializeComponent();

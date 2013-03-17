@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Windows;
 
 namespace Offsetify
 {
@@ -27,6 +28,19 @@ namespace Offsetify
             XmlDocument offsetDoc = new XmlDocument();
             XmlTextReader reader = new XmlTextReader(this.xmlLocation);
             offsetDoc.Load(reader);
+
+            int applicationVersion = Properties.Settings.Default.applicationVersion;
+            int builtWithVersion = Convert.ToInt32(offsetDoc.SelectSingleNode("OffsetifyXML").Attributes.GetNamedItem("version").Value);
+            
+            if (builtWithVersion < applicationVersion)
+            {
+                MessageBox.Show("WARNING : This Offsetify XML that you are opening was made with an older version of Offsetify!");
+            }
+            else if (builtWithVersion > applicationVersion)
+            {
+                MessageBox.Show("WARNING : This Offsetify XML that you are opening was made with a newer version of Offsetify!");
+            }
+
             foreach (XmlNode offsetEntry in offsetDoc.SelectSingleNode("OffsetifyXML").SelectNodes("offsetEntry"))
             {
                 string name = offsetEntry.Attributes.GetNamedItem("name").Value;
@@ -49,6 +63,7 @@ namespace Offsetify
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("OffsetifyXML");
+                    writer.WriteAttributeString("version", Properties.Settings.Default.applicationVersion.ToString());
                     foreach (Offset offset in offsets)
                     {
                         writer.WriteStartElement("offsetEntry");
