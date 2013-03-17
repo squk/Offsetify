@@ -10,7 +10,8 @@
         params:Manager.AccentBrush="YellowGreen"
         params:Manager.ContrastBrush="White"
         params:Design.ContrastBrush="White"
-        Height="318" Width="459">
+        Height="376" Width="459"
+        Title="Offset Window">
     <Grid>
         <ComboBox x:Name="offsetsBox" HorizontalAlignment="Left" Margin="179,10,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="offsetsBox_SelectionChanged"/>
         <TextBox x:Name="xdkName" HorizontalAlignment="Left" Height="31" Margin="25,10,0,0" Text="XDK Name" VerticalAlignment="Top" Width="149" FontSize="13.333"/>
@@ -27,6 +28,14 @@
         <Button x:Name="defaultPokeButton" Content="Poke" HorizontalAlignment="Left" Margin="284,187,0,0" VerticalAlignment="Top" Width="145" Click="defaultPokeButton_Click"/>
         <TextBlock x:Name="offsetNameBlock" HorizontalAlignment="Left" Margin="25,78,0,0" TextWrapping="Wrap" Text="Offset Name" VerticalAlignment="Top" FontSize="24"/>
         <TextBlock x:Name="dataTypeBlock" HorizontalAlignment="Left" Margin="41,110,0,0" TextWrapping="Wrap" Text="DataType at Offset" VerticalAlignment="Top"/>
+        <RichTextBox x:Name="notesBox" HorizontalAlignment="Left" Height="77" Margin="109,259,0,0" VerticalAlignment="Top" Width="320" IsReadOnly="True">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <TextBlock HorizontalAlignment="Left" Margin="69,260,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" FontSize="13.333"/>
 
     </Grid>
 </Controls:Window>

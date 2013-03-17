@@ -4,6 +4,7 @@
 		<type>float</type>
 		<assignedValue>32</assignedValue>
 		<defaultValue>32</defaultValue>
+		<notes></notes>
 	</offsetEntry>
 	
 	<offsetEntry name="String Offset">
@@ -11,5 +12,6 @@
 		<type>string</type>
 		<assignedValue>modded string</assignedValue>
 		<defaultValue>string</defaultValue>
+		<notes></notes>
 	</offsetEntry>
 </OffsetifyXML>

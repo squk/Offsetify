@@ -39,5 +39,10 @@ namespace Offsetify
                 new OffsetWindow(dlg.FileName).Show();
             }
         }
+
+        private void createFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            new MakeXMLWindow().Show();
+        }
     }
 }

@@ -21,3 +21,5 @@ C:\Users\Christian\Documents\Visual Studio 2012\Projects\Offsetify\Offsetify\Off
 C:\Users\Christian\Documents\Visual Studio 2012\Projects\Offsetify\Offsetify\Offsetify\obj\Release\Offsetify.csproj.GenerateResource.Cache
 C:\Users\Christian\Documents\Visual Studio 2012\Projects\Offsetify\Offsetify\Offsetify\obj\Release\Offsetify.exe
 C:\Users\Christian\Documents\Visual Studio 2012\Projects\Offsetify\Offsetify\Offsetify\obj\Release\Offsetify.pdb
+C:\Users\Christian\Documents\Visual Studio 2012\Projects\Offsetify\Offsetify\Offsetify\obj\Release\MakeXMLWindow.baml
+C:\Users\Christian\Documents\Visual Studio 2012\Projects\Offsetify\Offsetify\Offsetify\obj\Release\MakeXMLWindow.g.cs

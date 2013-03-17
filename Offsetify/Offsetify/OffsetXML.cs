@@ -19,10 +19,10 @@ namespace Offsetify
         public OffsetXML(string location)
         {
             this.xmlLocation = location;
-            this.readXML();
+            this.ReadXML();
         }
 
-        private void readXML()
+        private void ReadXML()
         {
             XmlDocument offsetDoc = new XmlDocument();
             XmlTextReader reader = new XmlTextReader(this.xmlLocation);
@@ -34,10 +34,35 @@ namespace Offsetify
                 string type = offsetEntry.SelectSingleNode("type").InnerText;
                 string assignedValue = offsetEntry.SelectSingleNode("assignedValue").InnerText;
                 string defaultValue = offsetEntry.SelectSingleNode("defaultValue").InnerText;
-                this.OffsetList.Add(new Offset(name, offset, type, assignedValue, defaultValue));
+                string notes = offsetEntry.SelectSingleNode("notes").InnerText;
+                this.OffsetList.Add(new Offset(name, offset, type, assignedValue, defaultValue, notes));
             }
             reader.Close();
             reader.Dispose();
+        }
+
+        public static void WriteOffsetListToXML(string location, List<Offset> offsets)
+        {
+            using (XmlWriter writer = XmlWriter.Create(location))
+            {
+                writer.WriteStartDocument();
+                    writer.WriteStartElement("OffsetifyXML");
+                    foreach (Offset offset in offsets)
+                    {
+                        writer.WriteStartElement("offsetEntry");
+                            writer.WriteAttributeString("name", offset.Name);
+                            writer.WriteElementString("offset", offset.memOffset);
+                            writer.WriteElementString("type", offset.Type);
+                            writer.WriteElementString("assignedValue", offset.AssignedValue);
+                            writer.WriteElementString("defaultValue", offset.DefaultValue);
+                            writer.WriteElementString("notes", offset.Notes);
+                        writer.WriteEndElement();
+                    }   
+                    writer.WriteEndElement();
+                writer.WriteEndDocument();
+
+                writer.Dispose();
+            }
         }
     }
 }

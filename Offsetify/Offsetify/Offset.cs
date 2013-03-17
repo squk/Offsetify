@@ -15,30 +15,52 @@ namespace Offsetify
         public string memOffset;
         public string Name;
         public string Type;
+        public string Notes;
 
-        public Offset(string name, string offset, string type, string assignedValue, string defaultValue)
+        public Offset()
         {
-            this.Name = name;
-            this.memOffset = offset;
-            this.Type = type;
-            this.AssignedValue = assignedValue;
-            this.DefaultValue = defaultValue;
-            this.CheckForEmptyFields();
+            Name = "";
+            memOffset = "";
+            Type = "";
+            AssignedValue = "";
+            DefaultValue = "";
+            Notes = "";
+        }
+
+        public Offset(string name)
+        {
+            Name = name;
+            memOffset = "";
+            Type = "";
+            AssignedValue = "";
+            DefaultValue = "";
+            Notes = "";
+        }
+
+        public Offset(string name, string offset, string type, string assignedValue, string defaultValue, string notes)
+        {
+            Name = name;
+            memOffset = offset;
+            Type = type;
+            AssignedValue = assignedValue;
+            DefaultValue = defaultValue;
+            Notes = notes;
+            CheckForEmptyFields();
         }
 
         private void CheckForEmptyFields()
         {
-            if (this.Name == "")
+            if (Name == "")
             {
-                this.Name = "Not Assigned";
+                Name = "Not Assigned";
             }
-            if (this.AssignedValue == "")
+            if (AssignedValue == "")
             {
-                this.AssignedValue = "Not Assigned";
+                AssignedValue = "Not Assigned";
             }
-            if (this.DefaultValue == "")
+            if (DefaultValue == "")
             {
-                this.DefaultValue = "Not Assigned";
+                DefaultValue = "Not Assigned";
             }
         }
     }

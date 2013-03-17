@@ -4,6 +4,7 @@
 		<type>float</type>
 		<assignedValue></assignedValue>
 		<defaultValue>4.1712594</defaultValue>
+		<notes>Changes the in-game gravity</notes>
 	</offsetEntry>
 	
 	<offsetEntry name="Jump Height">
@@ -11,6 +12,7 @@
 		<type>float</type>
 		<assignedValue></assignedValue>
 		<defaultValue>0.75</defaultValue>
+		<notes></notes>
 	</offsetEntry>
 	
 	<offsetEntry name="End Game">
@@ -18,6 +20,7 @@
 		<type>byte</type>
 		<assignedValue>1</assignedValue>
 		<defaultValue></defaultValue>
+		<notes></notes>
 	</offsetEntry>
 	
 	<offsetEntry name="Reload Map">
@@ -25,5 +28,6 @@
 		<type>byte</type>
 		<assignedValue>1</assignedValue>
 		<defaultValue></defaultValue>
+		<notes></notes>
 	</offsetEntry>
 </OffsetifyXML>

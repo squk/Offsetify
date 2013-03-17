@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using XDevkit;
 using HaloDevelopmentExtender;
 using HaloReach3d;
+using System.IO;
 
 namespace Offsetify
 {
@@ -73,6 +74,7 @@ namespace Offsetify
         public OffsetWindow(string filename)
         {
             InitializeComponent();
+            this.Title = new FileInfo(filename).Name;
             XboxManager xmb = new XboxManager();
             xdkName.Text = xmb.DefaultConsole;
             OffsetXML offsetXML = new OffsetXML(filename);
@@ -116,6 +118,11 @@ namespace Offsetify
             dataTypeBlock.Text = CurrentType + " at " + CurrentOffset;
             CurrentDefault = OffsetList[offsetsBox.SelectedIndex].DefaultValue;
             CurrentAssigned = OffsetList[offsetsBox.SelectedIndex].AssignedValue;
+
+            FlowDocument myFlowDoc = new FlowDocument();
+            myFlowDoc.Blocks.Add(new Paragraph(new Run(OffsetList[offsetsBox.SelectedIndex].Notes)));
+            RichTextBox myRichTextBox = new RichTextBox();
+            notesBox.Document = myFlowDoc;
         }
 
         public string getValue(uint offset, string type)

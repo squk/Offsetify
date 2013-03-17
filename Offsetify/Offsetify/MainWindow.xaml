@@ -9,10 +9,10 @@
         params:Design.AccentBrush="YellowGreen"
         params:Manager.AccentBrush="YellowGreen"
         params:Manager.ContrastBrush="White"
-        Height="81" Width="362" >
+        Height="79" Width="362" >
     <Grid>
         <Button x:Name="openXMLFile" Content="Open Offsetify XML" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="167" Click="openXMLFile_Click"/>
-        <Button Content="Create Offsetify XML" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" Width="167" IsEnabled="False"/>
+        <Button x:Name="createFileButton" Content="Create Offsetify XML" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" Width="167" Click="createFileButton_Click"/>
 
     </Grid>
 </Controls:Window>

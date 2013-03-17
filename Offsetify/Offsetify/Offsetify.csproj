@@ -84,12 +84,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MakeXMLWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OffsetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MakeXMLWindow.xaml.cs">
+      <DependentUpon>MakeXMLWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Offset.cs" />
     <Compile Include="OffsetWindow.xaml.cs">
       <DependentUpon>OffsetWindow.xaml</DependentUpon>
