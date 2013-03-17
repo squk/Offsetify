@@ -41,27 +41,35 @@ namespace Offsetify
             reader.Dispose();
         }
 
-        public static void WriteOffsetListToXML(string location, List<Offset> offsets)
+        public static bool WriteOffsetListToXML(string location, List<Offset> offsets)
         {
-            using (XmlWriter writer = XmlWriter.Create(location))
+            try
             {
-                writer.WriteStartDocument();
+                using (XmlWriter writer = XmlWriter.Create(location))
+                {
+                    writer.WriteStartDocument();
                     writer.WriteStartElement("OffsetifyXML");
                     foreach (Offset offset in offsets)
                     {
                         writer.WriteStartElement("offsetEntry");
-                            writer.WriteAttributeString("name", offset.Name);
-                            writer.WriteElementString("offset", offset.memOffset);
-                            writer.WriteElementString("type", offset.Type);
-                            writer.WriteElementString("assignedValue", offset.AssignedValue);
-                            writer.WriteElementString("defaultValue", offset.DefaultValue);
-                            writer.WriteElementString("notes", offset.Notes);
+                        writer.WriteAttributeString("name", offset.Name);
+                        writer.WriteElementString("offset", offset.memOffset);
+                        writer.WriteElementString("type", offset.Type);
+                        writer.WriteElementString("assignedValue", offset.AssignedValue);
+                        writer.WriteElementString("defaultValue", offset.DefaultValue);
+                        writer.WriteElementString("notes", offset.Notes);
                         writer.WriteEndElement();
-                    }   
+                    }
                     writer.WriteEndElement();
-                writer.WriteEndDocument();
+                    writer.WriteEndDocument();
 
-                writer.Dispose();
+                    writer.Dispose();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

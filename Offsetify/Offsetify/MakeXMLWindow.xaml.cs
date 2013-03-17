@@ -126,7 +126,11 @@ namespace Offsetify
 
             if (dlg.ShowDialog() == true)
             {
-                OffsetXML.WriteOffsetListToXML(dlg.FileName, OffsetList);
+                if (OffsetXML.WriteOffsetListToXML(dlg.FileName, OffsetList))
+                {
+                    MessageBox.Show("XML file created successfully. ");
+                    this.Close();
+                }
             }
         }
     }
