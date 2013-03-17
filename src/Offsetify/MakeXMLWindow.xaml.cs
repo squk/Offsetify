@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 using Microsoft.Win32;
 
 namespace Offsetify
@@ -64,33 +65,47 @@ namespace Offsetify
 
         private bool CheckValidOffset()
         {
+            bool nameValid;
+            bool offsetValid;
+            bool typeValid;
+
             if (nameBox.Text != "")
             {
-                return true;
+                nameValid = true;
             }
             else
             {
                 MessageBox.Show("You must give your offset a name. ");
-                return false;
+                nameValid = false;
             }
 
-            if (offsetBox.Text != "")
+            uint parseTesterOut;
+            if (offsetBox.Text != "" && UInt32.TryParse(offsetBox.Text, System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture, out parseTesterOut))
             {
-                return true;
+                offsetValid = true;
             }
             else
             {
-                MessageBox.Show("You must enter an offset. ");
-                return false;
+                MessageBox.Show("You must enter a valid offset. ");
+                offsetValid = false;
             }
 
-            if ((typeBox.SelectedItem as ComboBoxItem).Content.ToString() != "")
+            if ((typeBox.SelectedItem as ComboBoxItem) != null)
             {
-                return true;
+                typeValid = true;
             }
             else
             {
                 MessageBox.Show("You must enter a data type. ");
+                typeValid = false;
+            }
+
+            if (nameValid & offsetValid & typeValid)
+            {
+                return true;
+            }
+            else
+            {
                 return false;
             }
         }
