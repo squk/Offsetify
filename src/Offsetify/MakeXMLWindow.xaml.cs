@@ -130,6 +130,8 @@ namespace Offsetify
             notesBox.Document = myFlowDoc;
         }
 
+        private bool saved = false;
+
         private void saveCompleteButton_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog
@@ -143,9 +145,28 @@ namespace Offsetify
                 if (OffsetXML.WriteOffsetListToXML(dlg.FileName, OffsetList))
                 {
                     MessageBox.Show("XML file created successfully. ");
+                    saved = true;
                     this.Close();
                 }
             }
         }
+
+        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!saved)
+            {
+                if (MessageBox.Show("You are closing out of the XML creator. You will lose your progress. Is this okay?", "Close Application", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    //okay to close
+                }
+                else
+                {
+                    e.Cancel = true;
+                    this.Activate();
+                }
+            }
+        }
+
+        
     }
 }
