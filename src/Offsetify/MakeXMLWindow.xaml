@@ -9,7 +9,7 @@
         params:Design.AccentBrush="YellowGreen"
         params:Manager.AccentBrush="YellowGreen"
         params:Manager.ContrastBrush="White"
-        Title="Make a Offsetify XML" Height="491" Width="421">
+        Title="Make a Offsetify XML" Height="491" Width="421" ResizeMode="NoResize">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="17,177,0,0" TextWrapping="Wrap" Text="Saved Value" VerticalAlignment="Top" FontSize="13.333"/>
         <TextBox x:Name="savedValueBox" HorizontalAlignment="Left" Height="31" Margin="94,170,0,0" TextWrapping="Wrap" Text="e.g 65" VerticalAlignment="Top" Width="305" FontSize="13.333"/>

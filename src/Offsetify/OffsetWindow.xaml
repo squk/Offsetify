@@ -11,7 +11,7 @@
         params:Manager.ContrastBrush="White"
         params:Design.ContrastBrush="White"
         Height="376" Width="459"
-        Title="Offset Window">
+        Title="Offset Window" ResizeMode="NoResize">
     <Grid>
         <ComboBox x:Name="offsetsBox" HorizontalAlignment="Left" Margin="179,10,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="offsetsBox_SelectionChanged"/>
         <TextBox x:Name="xdkName" HorizontalAlignment="Left" Height="31" Margin="25,10,0,0" Text="XDK Name" VerticalAlignment="Top" Width="149" FontSize="13.333"/>
