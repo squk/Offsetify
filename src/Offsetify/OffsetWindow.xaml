@@ -16,7 +16,7 @@
         <ComboBox x:Name="offsetsBox" HorizontalAlignment="Left" Margin="179,10,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="offsetsBox_SelectionChanged"/>
         <TextBox x:Name="xdkName" HorizontalAlignment="Left" Height="31" Margin="25,10,0,0" Text="XDK Name" VerticalAlignment="Top" Width="149" FontSize="13.333"/>
         <TextBlock HorizontalAlignment="Left" Margin="32,158,0,0" TextWrapping="Wrap" Text="Saved Value" VerticalAlignment="Top" FontSize="13.333"/>
-        <TextBox x:Name="assignedValueBox" HorizontalAlignment="Left" Height="31" Margin="109,151,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170" FontSize="13.333"/>
+        <TextBox x:Name="assignedValueBox" HorizontalAlignment="Left" Height="31" Margin="109,151,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170" FontSize="13.333" IsEnabled="False"/>
         <Button x:Name="assignedPokeButton" Content="Poke" HorizontalAlignment="Left" Margin="284,151,0,0" VerticalAlignment="Top" Width="145" Click="assignedPokeButton_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="22,230,0,0" TextWrapping="Wrap" Text="Custom Value" VerticalAlignment="Top" FontSize="13.333"/>
         <TextBox x:Name="customValueBox" HorizontalAlignment="Left" Height="31" Margin="109,223,0,0" TextWrapping="Wrap" Text="e.g 123.75" VerticalAlignment="Top" Width="170" FontSize="13.333"/>
@@ -24,7 +24,7 @@
         <Button x:Name="customPeekButton" Content="Peek" HorizontalAlignment="Left" Margin="359,223,0,0" VerticalAlignment="Top" Width="30" Click="customPeekButton_Click"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="10,60,0,0" Stroke="White" VerticalAlignment="Top" Width="431"/>
         <TextBlock HorizontalAlignment="Left" Margin="25,194,0,0" TextWrapping="Wrap" Text="Default Value" VerticalAlignment="Top" FontSize="13.333"/>
-        <TextBox x:Name="defaultValueBox" HorizontalAlignment="Left" Height="31" Margin="109,187,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170" FontSize="13.333"/>
+        <TextBox x:Name="defaultValueBox" HorizontalAlignment="Left" Height="31" Margin="109,187,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170" FontSize="13.333" IsEnabled="False"/>
         <Button x:Name="defaultPokeButton" Content="Poke" HorizontalAlignment="Left" Margin="284,187,0,0" VerticalAlignment="Top" Width="145" Click="defaultPokeButton_Click"/>
         <TextBlock x:Name="offsetNameBlock" HorizontalAlignment="Left" Margin="25,78,0,0" TextWrapping="Wrap" Text="Offset Name" VerticalAlignment="Top" FontSize="24"/>
         <TextBlock x:Name="dataTypeBlock" HorizontalAlignment="Left" Margin="41,110,0,0" TextWrapping="Wrap" Text="DataType at Offset" VerticalAlignment="Top"/>
