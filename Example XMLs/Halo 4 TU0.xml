@@ -1,0 +1,29 @@
+<OffsetifyXML version="1">
+	<offsetEntry name="Gravity">
+		<offset>0x82128CC8</offset>
+		<type>float</type>
+		<assignedValue></assignedValue>
+		<defaultValue>4.1712594</defaultValue>
+	</offsetEntry>
+	
+	<offsetEntry name="Jump Height">
+		<offset>0x82128AEC</offset>
+		<type>float</type>
+		<assignedValue></assignedValue>
+		<defaultValue>0.75</defaultValue>
+	</offsetEntry>
+	
+	<offsetEntry name="End Game">
+		<offset>0x842663B6</offset>
+		<type>byte</type>
+		<assignedValue>1</assignedValue>
+		<defaultValue></defaultValue>
+	</offsetEntry>
+	
+	<offsetEntry name="Reload Map">
+		<offset>0x842663B7</offset>
+		<type>byte</type>
+		<assignedValue>1</assignedValue>
+		<defaultValue></defaultValue>
+	</offsetEntry>
+</OffsetifyXML>

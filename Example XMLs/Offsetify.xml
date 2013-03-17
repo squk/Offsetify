@@ -1,0 +1,15 @@
+<OffsetifyXML version="1">
+	<offsetEntry name="Custom Offset">
+		<offset>0x12345</offset>
+		<type>float</type>
+		<assignedValue>32</assignedValue>
+		<defaultValue>32</defaultValue>
+	</offsetEntry>
+	
+	<offsetEntry name="String Offset">
+		<offset>0x12345</offset>
+		<type>string</type>
+		<assignedValue>modded string</assignedValue>
+		<defaultValue>string</defaultValue>
+	</offsetEntry>
+</OffsetifyXML>
