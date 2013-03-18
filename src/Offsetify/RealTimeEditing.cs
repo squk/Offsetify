@@ -134,60 +134,67 @@ namespace Offsetify
 
         public string PeekXbox(uint offset, string type)
         {
-            string hex = "X";
-            object rn = null;
-            if (xdkName != "")
+            if (isConnected)
             {
-                XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
-                if (!Xbox_Debug_Communicator.Connected)
+                string hex = "X";
+                object rn = null;
+                if (xdkName != "")
                 {
-                    try
+                    XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
+                    if (!Xbox_Debug_Communicator.Connected)
                     {
-                        Xbox_Debug_Communicator.Connect();
+                        try
+                        {
+                            Xbox_Debug_Communicator.Connect();
+                        }
+                        catch
+                        {
+                        }
                     }
-                    catch
+                    XboxMemoryStream xbms = Xbox_Debug_Communicator.ReturnXboxMemoryStream();
+                    HaloReach3d.IO.EndianIO IO = new HaloReach3d.IO.EndianIO(xbms, HaloReach3d.IO.EndianType.BigEndian);
+                    IO.Open();
+                    IO.In.BaseStream.Position = offset;
+                    if ((type == "String") | (type == "string"))
                     {
+                        rn = IO.In.ReadString();
                     }
+                    if ((type == "Float") | (type == "float"))
+                    {
+                        rn = IO.In.ReadSingle();
+                    }
+                    if ((type == "Double") | (type == "double"))
+                    {
+                        rn = IO.In.ReadDouble();
+                    }
+                    if ((type == "Short") | (type == "short"))
+                    {
+                        rn = IO.In.ReadInt16().ToString(hex);
+                    }
+                    if ((type == "Byte") | (type == "byte"))
+                    {
+                        rn = IO.In.ReadByte().ToString(hex);
+                    }
+                    if ((type == "Long") | (type == "long"))
+                    {
+                        rn = IO.In.ReadInt32().ToString(hex);
+                    }
+                    if ((type == "Quad") | (type == "quad"))
+                    {
+                        rn = IO.In.ReadInt64().ToString(hex);
+                    }
+                    IO.Close();
+                    xbms.Close();
+                    Xbox_Debug_Communicator.Disconnect();
+                    return rn.ToString();
                 }
-                XboxMemoryStream xbms = Xbox_Debug_Communicator.ReturnXboxMemoryStream();
-                HaloReach3d.IO.EndianIO IO = new HaloReach3d.IO.EndianIO(xbms, HaloReach3d.IO.EndianType.BigEndian);
-                IO.Open();
-                IO.In.BaseStream.Position = offset;
-                if ((type == "String") | (type == "string"))
-                {
-                    rn = IO.In.ReadString();
-                }
-                if ((type == "Float") | (type == "float"))
-                {
-                    rn = IO.In.ReadSingle();
-                }
-                if ((type == "Double") | (type == "double"))
-                {
-                    rn = IO.In.ReadDouble();
-                }
-                if ((type == "Short") | (type == "short"))
-                {
-                    rn = IO.In.ReadInt16().ToString(hex);
-                }
-                if ((type == "Byte") | (type == "byte"))
-                {
-                    rn = IO.In.ReadByte().ToString(hex);
-                }
-                if ((type == "Long") | (type == "long"))
-                {
-                    rn = IO.In.ReadInt32().ToString(hex);
-                }
-                if ((type == "Quad") | (type == "quad"))
-                {
-                    rn = IO.In.ReadInt64().ToString(hex);
-                }
-                IO.Close();
-                xbms.Close();
-                Xbox_Debug_Communicator.Disconnect();
-                return rn.ToString();
+                MessageBox.Show("XDK Name/IP not set");
+                return "No Console Detected";
             }
-            MessageBox.Show("XDK Name/IP not set");
-            return "No Console Detected";
+            else
+            {
+                MessageBox.Show("You are not connected to your XDK");
+            }
         }
     }
 }
