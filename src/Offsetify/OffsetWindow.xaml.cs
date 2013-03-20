@@ -80,8 +80,7 @@ namespace Offsetify
             this.Title = new FileInfo(filename).Name;
             XboxManager xmb = new XboxManager();
             xdkName.Text = xmb.DefaultConsole;
-            OffsetXML offsetXML = new OffsetXML(filename);
-            OffsetList = offsetXML.OffsetList;
+            OffsetList = OffsetXML.ReadOffsetListFromXML(filename);
             foreach (Offset offset in OffsetList)
             {
                 ComboBoxItem offsetComboBoxItem = new ComboBoxItem

@@ -14,19 +14,11 @@ namespace Offsetify
 
     internal class OffsetXML
     {
-        public List<Offset> OffsetList = new List<Offset>();
-        private string xmlLocation = "";
-
-        public OffsetXML(string location)
+        public static List<Offset> ReadOffsetListFromXML(string location)
         {
-            this.xmlLocation = location;
-            this.ReadXML();
-        }
-
-        private void ReadXML()
-        {
+            List<Offset> OffsetList = new List<Offset>();
             XmlDocument offsetDoc = new XmlDocument();
-            XmlTextReader reader = new XmlTextReader(this.xmlLocation);
+            XmlTextReader reader = new XmlTextReader(location);
             offsetDoc.Load(reader);
 
             int applicationVersion = Properties.Settings.Default.applicationVersion;
@@ -49,10 +41,12 @@ namespace Offsetify
                 string assignedValue = offsetEntry.SelectSingleNode("assignedValue").InnerText;
                 string defaultValue = offsetEntry.SelectSingleNode("defaultValue").InnerText;
                 string notes = offsetEntry.SelectSingleNode("notes").InnerText;
-                this.OffsetList.Add(new Offset(name, offset, type, assignedValue, defaultValue, notes));
+                OffsetList.Add(new Offset(name, offset, type, assignedValue, defaultValue, notes));
             }
             reader.Close();
             reader.Dispose();
+
+            return OffsetList;
         }
 
         public static bool WriteOffsetListToXML(string location, List<Offset> offsets)
