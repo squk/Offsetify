@@ -129,19 +129,29 @@ namespace Offsetify
 
         private void connectToXDKButton_Click(object sender, RoutedEventArgs e)
         {
-            rte = new RealTimeEditing(xdkName.Text);
-            bool successfulConnection = rte.Connect();
-            if (successfulConnection)
+            if (!rte.isConnected)
             {
-                connectToXDKButton.Content = "Success";
-                connectToXDKButton.Background = Brushes.YellowGreen;
-                connectToXDKButton.BorderBrush = Brushes.YellowGreen;
+                rte = new RealTimeEditing(xdkName.Text);
+                bool successfulConnection = rte.Connect();
+                if (successfulConnection)
+                {
+                    connectToXDKButton.Content = "Disconnect";
+                    connectToXDKButton.Background = Brushes.YellowGreen;
+                    connectToXDKButton.BorderBrush = Brushes.YellowGreen;
+                }
+                else
+                {
+                    connectToXDKButton.Content = "Failure";
+                    connectToXDKButton.Background = Brushes.Red;
+                    connectToXDKButton.BorderBrush = Brushes.Red;
+                }
             }
             else
             {
-                connectToXDKButton.Content = "Failure";
-                connectToXDKButton.Background = Brushes.Red;
-                connectToXDKButton.BorderBrush = Brushes.Red;
+                rte.Disconnect();
+                connectToXDKButton.Content = "Connect";
+                connectToXDKButton.Background = Brushes.YellowGreen;
+                connectToXDKButton.BorderBrush = Brushes.YellowGreen;
             }
         }
 
@@ -152,10 +162,8 @@ namespace Offsetify
             if (afterFirstRun)
             {
                 connectToXDKButton.Content = "Connect";
-                var converter = new System.Windows.Media.BrushConverter();
-                var blueBrush = (Brush)converter.ConvertFromString("#FF3399FF");
-                connectToXDKButton.Background = blueBrush;
-                connectToXDKButton.BorderBrush = blueBrush;
+                connectToXDKButton.Background = Brushes.YellowGreen;
+                connectToXDKButton.BorderBrush = Brushes.YellowGreen;
             }
             afterFirstRun = true;
         }

@@ -12,11 +12,6 @@
         Title="Manual Poker" Height="249" Width="247">
     <Grid>
         <TextBox x:Name="xdkName" HorizontalAlignment="Left" Height="30" Margin="49,10,0,0" Text="XDK Name" VerticalAlignment="Top" Width="172" FontSize="13.333" TextChanged="xdkName_TextChanged"/>
-        <Button x:Name="connectToXDKButton" Content="Connect" HorizontalAlignment="Left" Margin="151,10,0,0" VerticalAlignment="Top" Width="60" Height="30" Click="connectToXDKButton_Click" BorderBrush="#FF3399FF">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}"/>
-            </Button.Background>
-        </Button>
         <TextBox x:Name="valueBox" HorizontalAlignment="Left" Height="31" Margin="51,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="13.333"/>
         <Button x:Name="pokeButton" Content="Poke" HorizontalAlignment="Left" Margin="51,171,0,0" VerticalAlignment="Top" Width="95" Click="customPokeButton_Click"/>
         <Button x:Name="peekButton" Content="Peek" HorizontalAlignment="Left" Margin="151,171,0,0" VerticalAlignment="Top" Width="30" Click="customPeekButton_Click"/>
@@ -35,6 +30,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="10,70,0,0" TextWrapping="Wrap" Text="Offset" VerticalAlignment="Top" FontSize="13.333"/>
         <TextBox x:Name="hexSpecifier" HorizontalAlignment="Left" Height="31" Margin="51,63,0,0" TextWrapping="Wrap" Text="0x" VerticalAlignment="Top" Width="24" FontSize="13.333" IsReadOnly="True" Background="#FF171717"/>
         <TextBox x:Name="offsetBox" HorizontalAlignment="Left" Height="31" Margin="73,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" FontSize="13.333"/>
+        <Button x:Name="connectToXDKButton" Content="Connect" HorizontalAlignment="Left" Margin="141,10,0,0" VerticalAlignment="Top" Width="80" Click="connectToXDKButton_Click" Height="30"/>
 
     </Grid>
 </Controls:Window>

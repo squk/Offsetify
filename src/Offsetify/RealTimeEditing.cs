@@ -16,6 +16,8 @@ namespace Offsetify
         private string xdkName;
         public bool isConnected;
 
+        private XboxDebugCommunicator Xbox_Debug_Communicator;
+
         public RealTimeEditing()
         {
             isConnected = false;
@@ -24,11 +26,15 @@ namespace Offsetify
         public RealTimeEditing(string XdkName)
         {
             xdkName = XdkName;
+            if (xdkName == "")
+            {
+                Elysium.Notifications.NotificationManager.BeginTryPush("Error", "XDKName/IP not set. ");
+            }
         }
 
         public bool Connect()
         {
-            XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
+            Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
             if (!Xbox_Debug_Communicator.Connected)
             {
                 try
@@ -53,78 +59,77 @@ namespace Offsetify
             }
         }
 
+        public void Disconnect()
+        {
+            Xbox_Debug_Communicator.Disconnect();
+            isConnected = false;
+            Elysium.Notifications.NotificationManager.BeginTryPush("Succes", "You are no longer connected to " + xdkName);
+        }
+
         public void PokeXbox(uint offset, string poketype, string amount)
         {
             if (isConnected)
             {
                 try
                 {
-                    if (xdkName == "")
+                    if (!Xbox_Debug_Communicator.Connected)
                     {
-                        Elysium.Notifications.NotificationManager.BeginTryPush("Error", "XDKName/IP not set. ");
+                        try
+                        {
+                            Xbox_Debug_Communicator.Connect();
+                        }
+                        catch
+                        {
+
+                        }
                     }
-                    else
+                    XboxMemoryStream xbms = Xbox_Debug_Communicator.ReturnXboxMemoryStream();
+                    HaloReach3d.IO.EndianIO IO = new HaloReach3d.IO.EndianIO(xbms, HaloReach3d.IO.EndianType.BigEndian);
+                    IO.Open();
+                    IO.Out.BaseStream.Position = offset;
+                    if (poketype == "Unicode String")
                     {
-                        XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
-                        if (!Xbox_Debug_Communicator.Connected)
-                        {
-                            try
-                            {
-                                Xbox_Debug_Communicator.Connect();
-                            }
-                            catch
-                            {
-                            }
-                        }
-                        XboxMemoryStream xbms = Xbox_Debug_Communicator.ReturnXboxMemoryStream();
-                        HaloReach3d.IO.EndianIO IO = new HaloReach3d.IO.EndianIO(xbms, HaloReach3d.IO.EndianType.BigEndian);
-                        IO.Open();
-                        IO.Out.BaseStream.Position = offset;
-                        if (poketype == "Unicode String")
-                        {
-                            IO.Out.WriteUnicodeString(amount, amount.Length);
-                        }
-                        if (poketype == "ASCII String")
-                        {
-                            IO.Out.WriteUnicodeString(amount, amount.Length);
-                        }
-                        if ((poketype == "String") | (poketype == "string"))
-                        {
-                            IO.Out.Write(amount);
-                        }
-                        if ((poketype == "Float") | (poketype == "float"))
-                        {
-                            IO.Out.Write(float.Parse(amount));
-                        }
-                        if ((poketype == "Double") | (poketype == "double"))
-                        {
-                            IO.Out.Write(double.Parse(amount));
-                        }
-                        if ((poketype == "Short") | (poketype == "short"))
-                        {
-                            IO.Out.Write((short)Convert.ToUInt32(amount, 0x10));
-                        }
-                        if ((poketype == "Byte") | (poketype == "byte"))
-                        {
-                            IO.Out.Write((byte)Convert.ToUInt32(amount, 0x10));
-                        }
-                        if ((poketype == "Long") | (poketype == "long"))
-                        {
-                            IO.Out.Write((long)Convert.ToUInt32(amount, 0x10));
-                        }
-                        if ((poketype == "Quad") | (poketype == "quad"))
-                        {
-                            IO.Out.Write((long)Convert.ToUInt64(amount, 0x10));
-                        }
-                        if ((poketype == "Int") | (poketype == "int"))
-                        {
-                            IO.Out.Write(Convert.ToUInt32(amount, 0x10));
-                        }
-                        IO.Close();
-                        xbms.Close();
-                        Xbox_Debug_Communicator.Disconnect();
-                        Elysium.Notifications.NotificationManager.BeginTryPush("Poked", "Successfully poked the " + poketype + " " + amount + " to the offset " + offset);
+                        IO.Out.WriteUnicodeString(amount, amount.Length);
                     }
+                    if (poketype == "ASCII String")
+                    {
+                        IO.Out.WriteUnicodeString(amount, amount.Length);
+                    }
+                    if ((poketype == "String") | (poketype == "string"))
+                    {
+                        IO.Out.Write(amount);
+                    }
+                    if ((poketype == "Float") | (poketype == "float"))
+                    {
+                        IO.Out.Write(float.Parse(amount));
+                    }
+                    if ((poketype == "Double") | (poketype == "double"))
+                    {
+                        IO.Out.Write(double.Parse(amount));
+                    }
+                    if ((poketype == "Short") | (poketype == "short"))
+                    {
+                        IO.Out.Write((short)Convert.ToUInt32(amount, 0x10));
+                    }
+                    if ((poketype == "Byte") | (poketype == "byte"))
+                    {
+                        IO.Out.Write((byte)Convert.ToUInt32(amount, 0x10));
+                    }
+                    if ((poketype == "Long") | (poketype == "long"))
+                    {
+                        IO.Out.Write((long)Convert.ToUInt32(amount, 0x10));
+                    }
+                    if ((poketype == "Quad") | (poketype == "quad"))
+                    {
+                        IO.Out.Write((long)Convert.ToUInt64(amount, 0x10));
+                    }
+                    if ((poketype == "Int") | (poketype == "int"))
+                    {
+                        IO.Out.Write(Convert.ToUInt32(amount, 0x10));
+                    }
+                    IO.Close();
+                    xbms.Close();
+                    Elysium.Notifications.NotificationManager.BeginTryPush("Poked", "Successfully poked the " + poketype + " " + amount + " to the offset 0x" + offset.ToString("X"));
                 }
                 catch
                 {
@@ -133,7 +138,7 @@ namespace Offsetify
             }
             else
             {
-                Elysium.Notifications.NotificationManager.BeginTryPush("Error", "You are not connected to your XDK");
+                Elysium.Notifications.NotificationManager.BeginTryPush("Error", "You are not connected to your XDK. ");
             }
         }
 
@@ -145,7 +150,7 @@ namespace Offsetify
                 object rn = null;
                 if (xdkName != "")
                 {
-                    XboxDebugCommunicator Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
+                    Xbox_Debug_Communicator = new XboxDebugCommunicator(xdkName);
                     if (!Xbox_Debug_Communicator.Connected)
                     {
                         try
@@ -190,7 +195,6 @@ namespace Offsetify
                     }
                     IO.Close();
                     xbms.Close();
-                    Xbox_Debug_Communicator.Disconnect();
                     return rn.ToString();
                 }
                 MessageBox.Show("XDK Name/IP not set");

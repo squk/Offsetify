@@ -36,11 +36,6 @@
             </FlowDocument>
         </RichTextBox>
         <TextBlock HorizontalAlignment="Left" Margin="69,260,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" FontSize="13.333"/>
-        <Button x:Name="connectToXDKButton" Content="Connect" HorizontalAlignment="Left" Margin="127,10,0,0" VerticalAlignment="Top" Width="60" Height="30" Click="connectToXDKButton_Click" BorderBrush="#FF3399FF">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}"/>
-            </Button.Background>
-        </Button>
-
+        <Button x:Name="connectToXDKButton" Content="Connect" HorizontalAlignment="Left" Margin="117,10,0,0" VerticalAlignment="Top" Width="80" Click="connectToXDKButton_Click" Height="30"/>
     </Grid>
 </Controls:Window>
