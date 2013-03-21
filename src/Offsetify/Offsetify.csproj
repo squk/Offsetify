@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Elysium SDK\.NET Framework 4\1.5\Elysium.dll</HintPath>
     </Reference>
+    <Reference Include="Elysium.Notifications, Version=1.5.41.0, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Elysium SDK\.NET Framework 4\1.5\Elysium.Notifications.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

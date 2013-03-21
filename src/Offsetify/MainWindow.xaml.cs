@@ -23,7 +23,7 @@ namespace Offsetify
     {
         public MainWindow()
         {
-            
+            Elysium.Manager.Apply(Application.Current, Elysium.Theme.Dark, Brushes.YellowGreen, Brushes.White);
         }
 
         private void openXMLFile_Click(object sender, RoutedEventArgs e)

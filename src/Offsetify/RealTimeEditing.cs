@@ -7,6 +7,7 @@ using XDevkit;
 using HaloDevelopmentExtender;
 using HaloReach3d;
 using System.Windows;
+using Elysium.Notifications;
 
 namespace Offsetify
 {
@@ -34,17 +35,20 @@ namespace Offsetify
                 {
                     Xbox_Debug_Communicator.Connect();
                     isConnected = true;
+                    Elysium.Notifications.NotificationManager.BeginTryPush("Success", "You are now connected to " + xdkName);
                     return true;
                 }
                 catch
                 {
                     isConnected = false;
+                    Elysium.Notifications.NotificationManager.BeginTryPush("Error", "Connection to " + xdkName + " failed. ");
                     return false;
                 }
             }
             else
             {
                 isConnected = true;
+                Elysium.Notifications.NotificationManager.BeginTryPush("Success", "You are already connected to " + xdkName);
                 return true;
             }
         }
@@ -57,7 +61,7 @@ namespace Offsetify
                 {
                     if (xdkName == "")
                     {
-                        MessageBox.Show("XDK Name/IP not set");
+                        Elysium.Notifications.NotificationManager.BeginTryPush("Error", "XDKName/IP not set. ");
                     }
                     else
                     {
@@ -119,16 +123,17 @@ namespace Offsetify
                         IO.Close();
                         xbms.Close();
                         Xbox_Debug_Communicator.Disconnect();
+                        Elysium.Notifications.NotificationManager.BeginTryPush("Poked", "Successfully poked the " + poketype + " " + amount + " to the offset " + offset);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Couldn't Poke XDK");
+                    Elysium.Notifications.NotificationManager.BeginTryPush("Error", "Couldn't poke XDK. ");
                 }
             }
             else
             {
-                MessageBox.Show("You are not connected to your XDK");
+                Elysium.Notifications.NotificationManager.BeginTryPush("Error", "You are not connected to your XDK");
             }
         }
 
@@ -193,7 +198,9 @@ namespace Offsetify
             }
             else
             {
-                MessageBox.Show("You are not connected to your XDK");
+                Elysium.Notifications.NotificationManager.BeginTryPush("Error", "You are not connected to your XDK");
+                //MessageBox.Show("You are not connected to your XDK");
+                return "Not Connected";
             }
         }
     }
