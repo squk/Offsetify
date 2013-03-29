@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.Xml;
+using System.Diagnostics;
 
 namespace Offsetify
 {
@@ -20,6 +22,7 @@ namespace Offsetify
     {
         public MainWindow()
         {
+            CheckForUpdate();
             Elysium.Manager.Apply(Application.Current, Elysium.Theme.Dark, Brushes.YellowGreen, Brushes.White);
         }
 
@@ -62,6 +65,34 @@ namespace Offsetify
         private void manualPokerButton_Click(object sender, RoutedEventArgs e)
         {
             new ManualPoker().Show();
+        }
+
+        private void CheckForUpdate()
+        {
+            string downloadUrl = "";
+            Version newVersion = null;
+            string aboutUpdate = "";
+            string xmlUrl = "http://www.ctnieves.com/projects/software.xml";
+            XmlTextReader reader = new XmlTextReader(xmlUrl);
+            XmlDocument updateDoc = new XmlDocument();
+            updateDoc.Load(reader);
+            XmlNode softwareNameNode = updateDoc.SelectSingleNode("ctnievesSoftware").SelectSingleNode("Offsetify");
+
+            newVersion = Version.Parse(softwareNameNode.SelectSingleNode("version").InnerText);
+            downloadUrl = softwareNameNode.SelectSingleNode("url").InnerText;
+            aboutUpdate = softwareNameNode.SelectSingleNode("about").InnerText;
+
+            reader.Close();
+            reader.Dispose();
+
+            Version applicationVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            if (applicationVersion.CompareTo(newVersion) < 0)
+            {
+                MessageBox.Show("New Version Available : " + newVersion.ToString() + "\n" +
+                                "Url : " + downloadUrl + "\n" +
+                                "About Update : " + aboutUpdate);
+                Process.Start(downloadUrl);
+            }
         }
     }
 }
