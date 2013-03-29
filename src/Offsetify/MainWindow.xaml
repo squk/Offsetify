@@ -13,7 +13,7 @@
     <Grid>
         <Button x:Name="openXMLFile" Content="Open Offsetify XML" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="167" Click="openXMLFile_Click"/>
         <Button x:Name="createFileButton" Content="Create Offsetify XML" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" Width="167" Click="createFileButton_Click"/>
-        <Button x:Name="manualPokerButton" Content="Use Manual Poker" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="336" Click="manualPokerButton_Click"/>
+        <Button x:Name="manualPokerButton" Content="Use Manual Poker" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="339" Click="manualPokerButton_Click"/>
 
     </Grid>
 </Controls:Window>

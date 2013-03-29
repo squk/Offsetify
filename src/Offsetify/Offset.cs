@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Offsetify
 {
-    internal class Offset
+    public class Offset
     {
         public string AssignedValue;
         public string DefaultValue;

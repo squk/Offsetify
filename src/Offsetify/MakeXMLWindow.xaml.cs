@@ -18,11 +18,25 @@ namespace Offsetify
 {
     public partial class MakeXMLWindow : Elysium.Controls.Window
     {
-        private List<Offset> OffsetList = new List<Offset>();
+        public List<Offset> OffsetList = new List<Offset>();
+
         public MakeXMLWindow()
         {
             InitializeComponent();
             ToggleAllControls(false);
+        }
+
+        public MakeXMLWindow(List<Offset> offsetList)
+        {
+            InitializeComponent();
+            OffsetList = offsetList;
+
+            foreach (Offset offset in OffsetList)
+            {
+                ComboBoxItem newOffsetCBI = new ComboBoxItem();
+                newOffsetCBI.Content = offset.Name;
+                offsetsBox.Items.Add(newOffsetCBI);
+            }
         }
 
         private void ToggleAllControls(bool state)

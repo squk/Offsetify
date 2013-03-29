@@ -8,11 +8,7 @@ using System.Windows;
 
 namespace Offsetify
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Xml;
-
-    internal class OffsetXML
+    public class OffsetXML
     {
         public static List<Offset> ReadOffsetListFromXML(string location)
         {

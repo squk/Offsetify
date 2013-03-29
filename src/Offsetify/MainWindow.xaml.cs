@@ -16,9 +16,6 @@ using Microsoft.Win32;
 
 namespace Offsetify
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Elysium.Controls.Window
     {
         public MainWindow()
@@ -28,16 +25,33 @@ namespace Offsetify
 
         private void openXMLFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog
+            if (MessageBox.Show("Would you like to edit this XML? (Don't know? hit no) ", "Edit?", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
-                DefaultExt = ".xml",
-                Filter = "Offsetify XML (.xml)|*.xml"
-            };
+                OpenFileDialog dlg = new OpenFileDialog
+                {
+                    DefaultExt = ".xml",
+                    Filter = "Offsetify XML (.xml)|*.xml"
+                };
 
-            if (dlg.ShowDialog() == true)
-            {
-                new OffsetWindow(dlg.FileName).Show();
+                if (dlg.ShowDialog() == true)
+                {
+                    new OffsetWindow(dlg.FileName).Show();
+                }
             }
+            else
+            {
+                OpenFileDialog dlg = new OpenFileDialog
+                {
+                    DefaultExt = ".xml",
+                    Filter = "Offsetify XML (.xml)|*.xml"
+                };
+
+                if (dlg.ShowDialog() == true)
+                {
+                    new MakeXMLWindow(OffsetXML.ReadOffsetListFromXML(dlg.FileName)).Show();
+                }
+            }
+            
         }
 
         private void createFileButton_Click(object sender, RoutedEventArgs e)
